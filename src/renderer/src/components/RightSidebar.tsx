@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useEditorStore } from '../store/editorStore'
 import { getBlockById } from '../data'
-import { Input, Select, Toggle, ComboBox } from './ui/Input'
+import { Input, Select, Toggle, ComboBox, ItemPicker } from './ui/Input'
 import { X, Settings, Trash2, Info } from 'lucide-react'
 import { Button } from './ui/Button'
 import { FieldDef } from '../types/blocks'
+import { GuiEditor, type GuiSlot } from './GuiEditor'
 
 function FieldRenderer({ field, value, onChange }: { field: FieldDef; value: any; onChange: (key: string, val: any) => void }) {
   switch (field.type) {
@@ -37,6 +38,16 @@ function FieldRenderer({ field, value, onChange }: { field: FieldDef; value: any
           onChange={(checked) => onChange(field.key, checked)}
         />
       )
+    case 'item':
+      return (
+        <ItemPicker
+          label={field.label}
+          description={field.description}
+          value={value ?? field.defaultValue ?? ''}
+          onChange={(val) => onChange(field.key, val)}
+          placeholder={field.placeholder || 'e.g. DIAMOND'}
+        />
+      )
     case 'select':
       return (
         <ComboBox
@@ -67,6 +78,26 @@ export function RightSidebar() {
   const selectedNode = nodes.find(n => n.id === selectedNodeId)
   const def = selectedNode ? getBlockById(selectedNode.data.definitionId) : null
 
+  const props = selectedNode?.data?.properties ?? {}
+
+  const guiSlots: GuiSlot[] = useMemo(() => {
+    try { return JSON.parse(props.slots || '[]') } catch { return [] }
+  }, [props.slots])
+
+  useEffect(() => {
+    if (selectedNode && props.slots && typeof props.slots === 'object' && !Array.isArray(props.slots)) {
+      updateNodeData(selectedNode.id, { slots: JSON.stringify(props.slots) })
+    }
+  }, [])
+
+  const handleChange = (key: string, value: any) => {
+    if (selectedNode) updateNodeData(selectedNode.id, { [key]: value })
+  }
+
+  const handleSlotsChange = (newSlots: GuiSlot[]) => {
+    handleChange('slots', JSON.stringify(newSlots))
+  }
+
   if (!selectedNode || !def) {
     return (
       <aside className="w-64 glass border-l border-white/5 flex flex-col shrink-0">
@@ -76,12 +107,6 @@ export function RightSidebar() {
         </div>
       </aside>
     )
-  }
-
-  const props = selectedNode.data.properties || {}
-
-  const handleChange = (key: string, value: any) => {
-    updateNodeData(selectedNode.id, { [key]: value })
   }
 
   return (
@@ -106,6 +131,12 @@ export function RightSidebar() {
           def.fields.map((field) => (
             <FieldRenderer key={field.key} field={field} value={props[field.key]} onChange={handleChange} />
           ))
+        )}
+
+        {def.id === 'create_gui' && (
+          <div className="py-2 border-t border-white/5">
+            <GuiEditor slots={guiSlots} rows={Number(props.rows) || 3} onChange={handleSlotsChange} />
+          </div>
         )}
 
         <div className="pt-2 border-t border-white/5">

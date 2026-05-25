@@ -5,7 +5,7 @@ import { Button } from './ui/Button'
 import {
   Undo2, Redo2, Save, Download, Code2, Bug,
   Play, FileJson, FileType, FileCog, PanelRightOpen, PanelRightClose,
-  Pencil
+  Pencil, Settings, Sparkles, BookOpen
 } from 'lucide-react'
 import { generateJson } from '../generators/jsonGenerator'
 import { generateJava } from '../generators/javaGenerator'
@@ -15,7 +15,7 @@ export function Header() {
   const {
     projectName, setProjectName,
     undo, redo,
-    toggleCodePreview, toggleDebugPanel, toggleExportDialog,
+    toggleCodePreview, toggleDebugPanel, toggleExportDialog, togglePluginConfig, toggleItemBuilder, toggleTemplateGallery,
     nodes, edges,
     pushHistory
   } = useEditorStore()
@@ -91,6 +91,9 @@ export function Header() {
         <Button variant="ghost" size="sm" icon={<Save className="w-3.5 h-3.5" />} onClick={handleSave} title="Save project (Ctrl+S)" />
         <Button variant="ghost" size="sm" icon={<Code2 className="w-3.5 h-3.5" />} onClick={toggleCodePreview} title="Preview generated code" />
         <Button variant="ghost" size="sm" icon={<Bug className="w-3.5 h-3.5" />} onClick={toggleDebugPanel} title="Debug mode" />
+        <Button variant="ghost" size="sm" icon={<Settings className="w-3.5 h-3.5" />} onClick={togglePluginConfig} title="Plugin configuration" />
+        <Button variant="ghost" size="sm" icon={<BookOpen className="w-3.5 h-3.5" />} onClick={toggleTemplateGallery} title="Template Gallery" />
+        <Button variant="ghost" size="sm" icon={<Sparkles className="w-3.5 h-3.5" />} onClick={toggleItemBuilder} title="Item Builder" />
 
         <div className="w-px h-5 bg-white/10 mx-1" />
 

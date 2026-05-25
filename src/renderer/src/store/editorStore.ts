@@ -22,6 +22,9 @@ interface EditorState {
   showCodePreview: boolean
   showDebugPanel: boolean
   showExportDialog: boolean
+  showPluginConfig: boolean
+  showItemBuilder: boolean
+  showTemplateGallery: boolean
   isWelcomeScreen: boolean
   projectName: string
 
@@ -42,6 +45,9 @@ interface EditorState {
   toggleCodePreview: () => void
   toggleDebugPanel: () => void
   toggleExportDialog: () => void
+  togglePluginConfig: () => void
+  toggleItemBuilder: () => void
+  toggleTemplateGallery: () => void
 
   setWelcomeScreen: (show: boolean) => void
   setProjectName: (name: string) => void
@@ -67,6 +73,9 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   showCodePreview: false,
   showDebugPanel: false,
   showExportDialog: false,
+  showPluginConfig: false,
+  showItemBuilder: false,
+  showTemplateGallery: false,
   isWelcomeScreen: true,
   projectName: 'My Plugin',
 
@@ -157,6 +166,9 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   toggleCodePreview: () => set((s) => ({ showCodePreview: !s.showCodePreview })),
   toggleDebugPanel: () => set((s) => ({ showDebugPanel: !s.showDebugPanel })),
   toggleExportDialog: () => set((s) => ({ showExportDialog: !s.showExportDialog })),
+  togglePluginConfig: () => set((s) => ({ showPluginConfig: !s.showPluginConfig })),
+  toggleItemBuilder: () => set((s) => ({ showItemBuilder: !s.showItemBuilder })),
+  toggleTemplateGallery: () => set((s) => ({ showTemplateGallery: !s.showTemplateGallery })),
 
   setWelcomeScreen: (show) => set({ isWelcomeScreen: show }),
   setProjectName: (name) => set({ projectName: name }),

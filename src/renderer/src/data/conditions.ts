@@ -64,14 +64,9 @@ export const conditions: BlockDefinition[] = [
       {
         key: 'item',
         label: 'Item',
-        type: 'select',
+        type: 'item',
         defaultValue: 'DIAMOND',
-        options: [
-          { label: 'Diamond', value: 'DIAMOND' },
-          { label: 'Emerald', value: 'EMERALD' },
-          { label: 'Gold Ingot', value: 'GOLD_INGOT' },
-          { label: 'Iron Ingot', value: 'IRON_INGOT' }
-        ]
+        description: 'Material ID to check'
       },
       {
         key: 'amount',
@@ -99,14 +94,9 @@ export const conditions: BlockDefinition[] = [
       {
         key: 'item',
         label: 'Item',
-        type: 'select',
+        type: 'item',
         defaultValue: 'DIAMOND_SWORD',
-        options: [
-          { label: 'Diamond Sword', value: 'DIAMOND_SWORD' },
-          { label: 'Bow', value: 'BOW' },
-          { label: 'Diamond Pickaxe', value: 'DIAMOND_PICKAXE' },
-          { label: 'Diamond', value: 'DIAMOND' }
-        ]
+        description: 'Material ID to check'
       },
       {
         key: 'check_offhand',

@@ -143,14 +143,9 @@ export const triggers: BlockDefinition[] = [
       {
         key: 'item',
         label: 'Item (optional)',
-        type: 'select',
+        type: 'item',
         defaultValue: 'any',
-        options: [
-          { label: 'Any Item', value: 'any' },
-          { label: 'Diamond', value: 'DIAMOND' },
-          { label: 'Sword', value: 'DIAMOND_SWORD' }
-        ],
-        description: 'Filter by item type'
+        description: 'Material ID to filter (or "any" for all)'
       }
     ],
     hasInput: false,
@@ -170,14 +165,9 @@ export const triggers: BlockDefinition[] = [
       {
         key: 'item',
         label: 'Item (optional)',
-        type: 'select',
+        type: 'item',
         defaultValue: 'any',
-        options: [
-          { label: 'Any Item', value: 'any' },
-          { label: 'Diamond', value: 'DIAMOND' },
-          { label: 'Arrow', value: 'ARROW' }
-        ],
-        description: 'Filter by item type'
+        description: 'Material ID to filter (or "any" for all)'
       }
     ],
     hasInput: false,
@@ -197,14 +187,9 @@ export const triggers: BlockDefinition[] = [
       {
         key: 'item',
         label: 'Item (optional)',
-        type: 'select',
+        type: 'item',
         defaultValue: 'any',
-        options: [
-          { label: 'Any Food', value: 'any' },
-          { label: 'Golden Apple', value: 'GOLDEN_APPLE' },
-          { label: 'Cooked Beef', value: 'COOKED_BEEF' },
-          { label: 'Potion', value: 'POTION' }
-        ]
+        description: 'Material ID to filter (or "any" for all)'
       }
     ],
     hasInput: false,

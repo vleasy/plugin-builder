@@ -281,22 +281,9 @@ export const actions: BlockDefinition[] = [
       {
         key: 'item',
         label: 'Item',
-        type: 'select',
+        type: 'item',
         defaultValue: 'DIAMOND',
-        options: [
-          { label: 'Diamond', value: 'DIAMOND' },
-          { label: 'Gold Ingot', value: 'GOLD_INGOT' },
-          { label: 'Iron Ingot', value: 'IRON_INGOT' },
-          { label: 'Diamond Sword', value: 'DIAMOND_SWORD' },
-          { label: 'Diamond Pickaxe', value: 'DIAMOND_PICKAXE' },
-          { label: 'Diamond Chestplate', value: 'DIAMOND_CHESTPLATE' },
-          { label: 'Cooked Beef', value: 'COOKED_BEEF' },
-          { label: 'Golden Apple', value: 'GOLDEN_APPLE' },
-          { label: 'Ender Pearl', value: 'ENDER_PEARL' },
-          { label: 'Tnt', value: 'TNT' },
-          { label: 'Arrow', value: 'ARROW' },
-          { label: 'Redstone', value: 'REDSTONE' }
-        ]
+        description: 'Material ID (e.g. DIAMOND, GOLD_INGOT, DIAMOND_SWORD)'
       },
       {
         key: 'amount',
@@ -331,14 +318,9 @@ export const actions: BlockDefinition[] = [
       {
         key: 'item',
         label: 'Item',
-        type: 'select',
+        type: 'item',
         defaultValue: 'DIAMOND',
-        options: [
-          { label: 'Diamond', value: 'DIAMOND' },
-          { label: 'Emerald', value: 'EMERALD' },
-          { label: 'Gold Ingot', value: 'GOLD_INGOT' },
-          { label: 'Iron Ingot', value: 'IRON_INGOT' }
-        ]
+        description: 'Material ID to remove'
       },
       {
         key: 'amount',
@@ -1554,6 +1536,81 @@ export const actions: BlockDefinition[] = [
     hasInput: true,
     hasOutput: true,
     outputType: 'flow',
+    canConnectTo: ['action', 'condition', 'variable']
+  },
+  {
+    id: 'create_gui',
+    type: 'action',
+    label: 'Create GUI',
+    icon: 'layout-grid',
+    color: '#22D3EE',
+    description: 'Создает графический интерфейс (инвентарь) с настраиваемыми слотами',
+    tags: ['gui', 'inventory', 'menu', 'chest', 'interface'],
+    fields: [
+      {
+        key: 'gui_id',
+        label: 'GUI ID',
+        type: 'string',
+        defaultValue: 'my_gui',
+        placeholder: 'my_gui',
+        description: 'Unique identifier for this GUI'
+      },
+      {
+        key: 'title',
+        label: 'GUI Title',
+        type: 'string',
+        defaultValue: 'Menu',
+        placeholder: 'Menu',
+        description: 'Title displayed at the top of the GUI'
+      },
+      {
+        key: 'rows',
+        label: 'Rows (1-6)',
+        type: 'number',
+        defaultValue: 3,
+        placeholder: '3',
+        description: 'Number of inventory rows'
+      },
+      {
+        key: 'slots',
+        label: 'Slots (JSON)',
+        type: 'string',
+        defaultValue: '[]',
+        description: 'Slot configuration as JSON array'
+      }
+    ],
+    hasInput: true,
+    hasOutput: false,
+    canConnectTo: ['action', 'condition', 'variable']
+  },
+  {
+    id: 'open_gui',
+    type: 'action',
+    label: 'Open GUI',
+    icon: 'external-link',
+    color: '#22D3EE',
+    description: 'Открывает созданный GUI игроку',
+    tags: ['gui', 'inventory', 'open', 'menu', 'show'],
+    fields: [
+      delayField,
+      {
+        key: 'target_player',
+        label: 'Target Player (leave empty for self)',
+        type: 'string',
+        defaultValue: '',
+        placeholder: 'Player name...'
+      },
+      {
+        key: 'gui_id',
+        label: 'GUI ID',
+        type: 'string',
+        defaultValue: 'my_gui',
+        placeholder: 'my_gui',
+        description: 'ID of the GUI to open'
+      }
+    ],
+    hasInput: true,
+    hasOutput: false,
     canConnectTo: ['action', 'condition', 'variable']
   }
 ]
